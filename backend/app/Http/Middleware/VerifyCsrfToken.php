@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+
+class VerifyCsrfToken extends Middleware
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        'api/login',
+        'api/register',
+        'api/logout',
+        'api/kelas',
+        'api/guru',
+        'api/siswa',
+        'api/siswa/kelas/*',
+        'api/guru/kelas/*',
+        'api/siswa/*',
+        'api/guru/*',
+        'api/kelas/*',
+        'api/siswa/kelas',
+        'api/guru/kelas',
+    ];
+}
