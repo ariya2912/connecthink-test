@@ -77,7 +77,7 @@ export default function SiswaManagement() {
 
   return (
     <div className="container mt-4">
-      <h3 className="mb-4">Manajemen Data Siswa</h3>
+      <h3 className="mb-4">Kelola Data Siswa</h3>
       <form onSubmit={handleSubmit} className="row g-3 mb-4">
         <div className="col-md-5">
           <input

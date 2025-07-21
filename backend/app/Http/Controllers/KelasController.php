@@ -16,7 +16,6 @@ class KelasController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
         ]);
         $kelas = Kelas::create($validated);
         return response()->json($kelas, 201);
@@ -32,7 +31,6 @@ class KelasController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
         ]);
         $kelas = Kelas::findOrFail($id);
         $kelas->update($validated);

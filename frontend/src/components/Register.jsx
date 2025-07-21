@@ -42,7 +42,6 @@ export default function Register() {
           navigate('/login');
         }, 2000);
       } else {
-        // Tangani error dari Laravel (validasi)
         if (data.errors) {
           const errorMessages = Object.values(data.errors).flat().join(', ');
           setMessage(errorMessages);
@@ -102,19 +101,9 @@ export default function Register() {
         </div>
         <div className="mb-3">
           <label htmlFor="passwordConfirmation" className="form-label">Konfirmasi Password</label>
-          <input
-            id="passwordConfirmation"
-            type="password"
-            placeholder="Konfirmasi Password"
-            value={passwordConfirmation}
-            onChange={e => setPasswordConfirmation(e.target.value)}
-            className="form-control"
-            required
-          />
+          <input id="passwordConfirmation" type="password" placeholder="Konfirmasi Password" value={passwordConfirmation} onChange={e => setPasswordConfirmation(e.target.value)} className="form-control" required/>
         </div>
-        <button type="submit" className="btn btn-primary w-100">
-          Register
-        </button>
+        <button type="submit" className="btn btn-primary w-100">Register</button>
       </form>
       <p className="mt-3 text-center">
         Sudah punya akun?{' '}

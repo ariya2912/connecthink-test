@@ -35,55 +35,60 @@ export default function Dashboard() {
       </div>
 
       <div className="row g-4">
-        <div className="col-12 col-md-6 col-lg-4">
+        <div className="col-12 col-md-4 col-lg-4">
           <div className="card h-100 shadow-sm border-0">
             <div className="card-body text-center">
-              <h5 className="card-title">Manage Siswa</h5>
-              <p className="card-text text-muted">Data siswa</p>
+              <h5 className="card-title">Kelola Siswa</h5>
               <Link to="/siswa" className="btn btn-primary w-100">
                 Akses
               </Link>
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-4">
+        <div className="col-12 col-md-4 col-lg-4">
           <div className="card h-100 shadow-sm border-0">
             <div className="card-body text-center">
-              <h5 className="card-title">Manage Kelas</h5>
-              <p className="card-text text-muted">Data kelas</p>
+              <h5 className="card-title">Kelola Kelas</h5>
               <Link to="/kelas" className="btn btn-primary w-100">
                 Akses
               </Link>
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-4">
+        <div className="col-12 col-md-4 col-lg-4">
           <div className="card h-100 shadow-sm border-0">
             <div className="card-body text-center">
-              <h5 className="card-title">Manage Guru</h5>
-              <p className="card-text text-muted">Data guru</p>
+              <h5 className="card-title">Kelola Guru</h5>
               <Link to="/guru" className="btn btn-primary w-100">
                 Akses
               </Link>
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-6">
+        <div className="col-12 col-md-4 col-lg-4">
           <div className="card h-100 shadow-sm border-0">
             <div className="card-body text-center">
-              <h5 className="card-title">List Siswa & Guru berdasarkan Kelas</h5>
-              <p className="card-text text-muted">Gabungan data berdasarkan kelas</p>
-              <Link to="/list-by-kelas" className="btn btn-primary w-100">
+              <h5 className="card-title">Daftar Siswa</h5>
+              <Link to="/list-siswa-by-kelas" className="btn btn-primary w-100">
                 Akses
               </Link>
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-6">
+        <div className="col-12 col-md-4 col-lg-4">
           <div className="card h-100 shadow-sm border-0">
             <div className="card-body text-center">
-              <h5 className="card-title">List Gabungan</h5>
-              <p className="card-text text-muted">Siswa, Guru, dan Kelas</p>
+              <h5 className="card-title">Daftar Guru</h5>
+              <Link to="/list-guru-by-kelas" className="btn btn-primary w-100">
+                Akses
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="col-12 col-md-4 col-lg-4">
+          <div className="card h-100 shadow-sm border-0">
+            <div className="card-body text-center">
+              <h5 className="card-title">Daftar Gabungan</h5>
               <Link to="/combined-list" className="btn btn-primary w-100">
                 Akses
               </Link>

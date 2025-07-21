@@ -95,7 +95,7 @@ function KelasManagement() {
 
   return (
     <div className="p-4">
-      <h4 className="mb-3">Data Kelas</h4>
+      <h4 className="mb-3">Kelola Data Kelas</h4>
       <form onSubmit={handleSubmit} className="mb-4 d-flex gap-2">
         <input
           type="text"

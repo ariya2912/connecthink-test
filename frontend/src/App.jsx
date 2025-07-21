@@ -7,8 +7,9 @@ import Dashboard from './components/Dashboard.jsx';
 import SiswaManagement from './components/SiswaManagement.jsx';
 import KelasManagement from './components/KelasManagement.jsx';
 import GuruManagement from './components/GuruManagement.jsx';
-import ListByKelas from './components/ListByKelas.jsx';
 import CombinedList from './components/CombinedList.jsx';
+import ListSiswaByKelas from './components/ListSiswaByKelas';
+import ListGuruByKelas from './components/ListGuruByKelas';
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('token');
@@ -24,7 +25,8 @@ function App() {
             <Route path="/siswa" element={<SiswaManagement />} />
             <Route path="/kelas" element={<KelasManagement />} />
             <Route path="/guru" element={<GuruManagement />} />
-            <Route path="/list-by-kelas" element={<ListByKelas />} />
+            <Route path="/list-siswa-by-kelas" element={<ListSiswaByKelas />} />
+            <Route path="/list-guru-by-kelas" element={<ListGuruByKelas />} />
             <Route path="/combined-list" element={<CombinedList />} />
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </>

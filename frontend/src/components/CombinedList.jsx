@@ -1,142 +1,68 @@
 import React, { useState, useEffect } from 'react';
 
 export default function CombinedList() {
-  const [siswaList, setSiswaList] = useState([]);
-  const [kelasList, setKelasList] = useState([]);
-  const [guruList, setGuruList] = useState([]);
+  const [combinedList, setCombinedList] = useState([]);
 
   useEffect(() => {
-    fetchSiswa();
-    fetchKelas();
-    fetchGuru();
+    fetchData();
   }, []);
 
-  const fetchSiswa = async () => {
+  const fetchData = async () => {
     const token = localStorage.getItem('token');
-    const res = await fetch('http://localhost:8000/api/siswa', {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await res.json();
-    setSiswaList(Array.isArray(data) ? data : []);
-  };
+    const [siswaRes, guruRes] = await Promise.all([
+      fetch('http://localhost:8000/api/siswa', { headers: { Authorization: `Bearer ${token}` } }),
+      fetch('http://localhost:8000/api/guru', { headers: { Authorization: `Bearer ${token}` } }),
+    ]);
+    const siswaData = await siswaRes.json();
+    const guruData = await guruRes.json();
 
-  const fetchKelas = async () => {
-    const token = localStorage.getItem('token');
-    const res = await fetch('http://localhost:8000/api/kelas', {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await res.json();
-    setKelasList(Array.isArray(data) ? data : []);
-  };
+    const siswaList = Array.isArray(siswaData) ? siswaData.map(s => ({ ...s, role: 'Siswa' })) : [];
+    const guruList = Array.isArray(guruData) ? guruData.map(g => ({ ...g, role: 'Guru' })) : [];
 
-  const fetchGuru = async () => {
-    const token = localStorage.getItem('token');
-    const res = await fetch('http://localhost:8000/api/guru', {
-      headers: { Authorization: `Bearer ${token}` },
+    const combined = [...siswaList, ...guruList];
+    combined.sort((a, b) => {
+      if (a.kelas && b.kelas) {
+        return a.kelas.nama.localeCompare(b.kelas.nama);
+      }
+      return 0;
     });
-    const data = await res.json();
-    setGuruList(Array.isArray(data) ? data : []);
-  };
 
-  const SectionCard = ({ title, children }) => (
-    <div className="card mb-4 shadow-sm border-0">
-      <div className="card-header bg-primary text-white fw-semibold">
-        {title}
-      </div>
-      <div className="card-body p-0">
-        <div className="table-responsive">{children}</div>
-      </div>
-    </div>
-  );
+    setCombinedList(combined);
+  };
 
   return (
-    <div className="container py-4">
-      <h2 className="mb-4 fw-bold text-primary">Data Siswa, Kelas, dan Guru</h2>
-
-      <SectionCard title="List Siswa">
-        <table className="table table-striped align-middle mb-0">
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-4">Daftar Gabungan</h2>
+      <div className="table-responsive">
+        <table className="table table-striped table-bordered align-middle">
           <thead className="table-light">
             <tr>
               <th>No</th>
               <th>Nama</th>
+              <th>Role</th>
               <th>Kelas</th>
             </tr>
           </thead>
           <tbody>
-            {siswaList.length > 0 ? (
-              siswaList.map((siswa, index) => (
-                <tr key={siswa.id}>
+            {combinedList.length > 0 ? (
+              combinedList.map((item, index) => (
+                <tr key={item.id} className="align-middle">
                   <td>{index + 1}</td>
-                  <td>{siswa.nama}</td>
-                  <td>{siswa.kelas?.nama || '-'}</td>
+                  <td>{item.nama}</td>
+                  <td>{item.role}</td>
+                  <td>{item.kelas ? item.kelas.nama : '-'}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="3" className="text-center text-muted">
-                  Tidak ada data siswa.
+                <td colSpan="4" className="text-center text-muted">
+                  Tidak ada data.
                 </td>
               </tr>
             )}
           </tbody>
         </table>
-      </SectionCard>
-
-      <SectionCard title="List Kelas">
-        <table className="table table-striped align-middle mb-0">
-          <thead className="table-light">
-            <tr>
-              <th>No</th>
-              <th>Nama Kelas</th>
-            </tr>
-          </thead>
-          <tbody>
-            {kelasList.length > 0 ? (
-              kelasList.map((kelas, index) => (
-                <tr key={kelas.id}>
-                  <td>{index + 1}</td>
-                  <td>{kelas.nama}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="2" className="text-center text-muted">
-                  Tidak ada data kelas.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </SectionCard>
-
-      <SectionCard title="List Guru">
-        <table className="table table-striped align-middle mb-0">
-          <thead className="table-light">
-            <tr>
-              <th>No</th>
-              <th>Nama</th>
-              <th>Kelas</th>
-            </tr>
-          </thead>
-          <tbody>
-            {guruList.length > 0 ? (
-              guruList.map((guru, index) => (
-                <tr key={guru.id}>
-                  <td>{index + 1}</td>
-                  <td>{guru.nama}</td>
-                  <td>{guru.kelas?.nama || '-'}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="3" className="text-center text-muted">
-                  Tidak ada data guru.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </SectionCard>
+      </div>
     </div>
   );
 }
